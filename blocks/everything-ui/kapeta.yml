@@ -1,0 +1,252 @@
+kind: kapeta/block-type-frontend:1.3.8
+metadata:
+  name: kapeta/everything-ui
+  visibility: private
+  title: UI for Everything
+spec:
+  entities:
+    types:
+      - type: dto
+        name: Token
+        properties:
+          token:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+      - type: dto
+        name: UserRegistration
+        properties:
+          email:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+          name:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+          password:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+      - type: dto
+        name: User
+        properties:
+          email:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+          name:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+      - type: dto
+        name: UserAuthPassword
+        properties:
+          email:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+          password:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+      - type: dto
+        name: TokenWithPassword
+        properties:
+          token:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+          password:
+            type: string
+            secret: false
+            sensitive: false
+            required: true
+            global: false
+            primary: false
+    source:
+      type: kaplang
+      version: 1.17.2
+      value: |-
+        type Token {
+        	token: string
+        }
+
+
+        type UserRegistration {
+        	email: string
+        	name: string
+        	password: string
+        }
+
+
+        type User {
+        	email: string
+        	name: string
+        }
+
+
+        type UserAuthPassword {
+        	email: string
+        	password: string
+        }
+
+
+        type TokenWithPassword {
+            token:string
+            password:string
+        }
+  providers:
+    - kind: kapeta/resource-type-web-page:0.0.13
+      metadata:
+        name: main
+      spec:
+        port:
+          name: http
+          type: web
+        path: /
+  consumers:
+    - kind: kapeta/resource-type-rest-client:1.6.0
+      metadata:
+        name: users
+      spec:
+        port:
+          name: rest
+          type: rest
+        methods:
+          Users::updateCurrentUser:
+            responseType:
+              ref: User
+            method: POST
+            path: /users/me
+            arguments:
+              user:
+                ref: User
+                transport: BODY
+                argument: user
+                optional: false
+            controllerName: Users
+          Users::getCurrentUser:
+            responseType:
+              ref: User
+            method: GET
+            path: /users/me
+            arguments: {}
+            controllerName: Users
+          Users::applyNewPassword:
+            responseType:
+              type: void
+            method: POST
+            path: /users/recover-password/apply
+            arguments:
+              token:
+                ref: TokenWithPassword
+                transport: BODY
+                argument: token
+                optional: false
+            controllerName: Users
+          Users::recoverPassword:
+            responseType:
+              ref: Token
+            method: POST
+            path: /users/recover-password
+            arguments:
+              email:
+                type: string
+                transport: QUERY
+                argument: email
+                optional: false
+            controllerName: Users
+          Users::authenticate:
+            responseType:
+              ref: Token
+            method: POST
+            path: /users/authenticate
+            arguments:
+              auth:
+                ref: UserAuthPassword
+                transport: BODY
+                argument: auth
+                optional: false
+            controllerName: Users
+          Users::activateUser:
+            responseType:
+              ref: User
+            method: POST
+            path: /users/activate
+            arguments:
+              token:
+                ref: Token
+                transport: BODY
+                argument: token
+                optional: false
+            controllerName: Users
+          Users::registerUser:
+            responseType:
+              ref: Token
+            method: POST
+            path: /users/register
+            arguments:
+              payload:
+                ref: UserRegistration
+                transport: BODY
+                argument: payload
+                optional: false
+            controllerName: Users
+        source:
+          type: kaplang
+          version: 1.17.2
+          value: |-
+            controller Users('/users') {
+
+                @POST('/register')
+                registerUser( @Body payload:UserRegistration ):Token
+
+                @POST("/activate")
+                activateUser( @Body token:Token):User
+
+                @POST("/authenticate")
+                authenticate( @Body auth:UserAuthPassword):Token
+
+                @POST("/recover-password")
+                recoverPassword( @Query email:string):Token
+
+                @POST("/recover-password/apply")
+                applyNewPassword( @Body token:TokenWithPassword ):void
+
+                @GET("/me")
+                getCurrentUser():User
+
+                @POST("/me")
+                updateCurrentUser(@Body user:User):User
+
+            }
+  target:
+    kind: kapeta/language-target-react-ts:3.6.0

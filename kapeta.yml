@@ -1,0 +1,224 @@
+kind: core/plan
+metadata:
+  name: kapeta/everything
+  visibility: private
+  description: A system that can do everything
+  structure: mono
+  title: Everything System
+spec:
+  blocks:
+    - block:
+        ref: kapeta://kapeta/everything-user:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 462.11215621833287
+        top: 477.1765765255571
+      id: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      name: Users
+    - block:
+        ref: kapeta://kapeta/everything-customers:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 896.3099191407595
+        top: 468.31904035217605
+      id: 2217e985-8336-4d32-be87-1856d7919d1d
+      name: Customers
+    - block:
+        ref: kapeta://kapeta/everything-cms:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 829.3537691705021
+        top: 180.32256825862083
+      id: fdaeee4c-7bb7-4a19-ad93-1ffa181dca9e
+      name: CMS
+    - block:
+        ref: kapeta://kapeta/everything-ecommerce:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 907.8520934192175
+        top: 748.4172134005302
+      id: d5f7cb4d-9f48-4789-9558-3670a50b01a0
+      name: E-commerce
+    - block:
+        ref: kapeta://kapeta/everything-ui:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 1284.5544265158987
+        top: 470.63322684237477
+      id: b9b0f710-6659-4843-ae14-463f1d364077
+      name: UI
+    - block:
+        ref: kapeta://kapeta/everything-gateway:local
+      dimensions:
+        height: -1
+        width: 150
+        left: 1720.539801977551
+        top: 469.8794428745555
+      id: e04cebcd-d670-4e77-8ce2-4bce67d7c76e
+      name: Gateway
+  connections:
+    - provider:
+        resourceName: users
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: users
+        blockId: b9b0f710-6659-4843-ae14-463f1d364077
+      port:
+        name: rest
+        type: rest
+      mapping:
+        Users::registerUser:
+          targetId: Users::registerUser
+          type: EXACT
+        Users::activateUser:
+          targetId: Users::activateUser
+          type: EXACT
+        Users::authenticate:
+          targetId: Users::authenticate
+          type: EXACT
+        Users::recoverPassword:
+          targetId: Users::recoverPassword
+          type: EXACT
+        Users::applyNewPassword:
+          targetId: Users::applyNewPassword
+          type: EXACT
+        Users::getCurrentUser:
+          targetId: Users::getCurrentUser
+          type: EXACT
+        Users::updateCurrentUser:
+          targetId: Users::updateCurrentUser
+          type: EXACT
+    - provider:
+        resourceName: users
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: users
+        blockId: 2217e985-8336-4d32-be87-1856d7919d1d
+      port:
+        name: rest
+        type: rest
+      mapping:
+        Users::registerUser:
+          targetId: Users::registerUser
+          type: EXACT
+        Users::activateUser:
+          targetId: Users::activateUser
+          type: EXACT
+        Users::authenticate:
+          targetId: Users::authenticate
+          type: EXACT
+        Users::recoverPassword:
+          targetId: Users::recoverPassword
+          type: EXACT
+        Users::applyNewPassword:
+          targetId: Users::applyNewPassword
+          type: EXACT
+        Users::getCurrentUser:
+          targetId: Users::getCurrentUser
+          type: EXACT
+        Users::updateCurrentUser:
+          targetId: Users::updateCurrentUser
+          type: EXACT
+    - provider:
+        resourceName: users
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: users
+        blockId: fdaeee4c-7bb7-4a19-ad93-1ffa181dca9e
+      port:
+        name: rest
+        type: rest
+      mapping:
+        Users::registerUser:
+          targetId: Users::registerUser
+          type: EXACT
+        Users::activateUser:
+          targetId: Users::activateUser
+          type: EXACT
+        Users::authenticate:
+          targetId: Users::authenticate
+          type: EXACT
+        Users::recoverPassword:
+          targetId: Users::recoverPassword
+          type: EXACT
+        Users::applyNewPassword:
+          targetId: Users::applyNewPassword
+          type: EXACT
+        Users::getCurrentUser:
+          targetId: Users::getCurrentUser
+          type: EXACT
+        Users::updateCurrentUser:
+          targetId: Users::updateCurrentUser
+          type: EXACT
+    - provider:
+        resourceName: users
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: users
+        blockId: d5f7cb4d-9f48-4789-9558-3670a50b01a0
+      port:
+        name: rest
+        type: rest
+      mapping:
+        Users::registerUser:
+          targetId: Users::registerUser
+          type: EXACT
+        Users::activateUser:
+          targetId: Users::activateUser
+          type: EXACT
+        Users::authenticate:
+          targetId: Users::authenticate
+          type: EXACT
+        Users::recoverPassword:
+          targetId: Users::recoverPassword
+          type: EXACT
+        Users::applyNewPassword:
+          targetId: Users::applyNewPassword
+          type: EXACT
+        Users::getCurrentUser:
+          targetId: Users::getCurrentUser
+          type: EXACT
+        Users::updateCurrentUser:
+          targetId: Users::updateCurrentUser
+          type: EXACT
+    - provider:
+        resourceName: main
+        blockId: b9b0f710-6659-4843-ae14-463f1d364077
+      consumer:
+        resourceName: main
+        blockId: e04cebcd-d670-4e77-8ce2-4bce67d7c76e
+      port:
+        name: http
+        type: web
+    - provider:
+        resourceName: authjwtprovider
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: authjwtconsumer
+        blockId: fdaeee4c-7bb7-4a19-ad93-1ffa181dca9e
+      port:
+        name: http
+        type: http
+    - provider:
+        resourceName: authjwtprovider
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: authjwtconsumer
+        blockId: 2217e985-8336-4d32-be87-1856d7919d1d
+      port:
+        name: http
+        type: http
+    - provider:
+        resourceName: authjwtprovider
+        blockId: 0e1bb06b-363d-46ac-902d-2c0e86c4905e
+      consumer:
+        resourceName: authjwtconsumer
+        blockId: d5f7cb4d-9f48-4789-9558-3670a50b01a0
+      port:
+        name: http
+        type: http
