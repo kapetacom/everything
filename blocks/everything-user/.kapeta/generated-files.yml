@@ -7,9 +7,9 @@ version: 1.0.0
 assets:
   - filename: src/main/java/com/kapeta/everything/config/BaseConfig.java
     mode: write-always
-    checksum: 136cd0cc98b7f4c72417256555dc5a42d0dc4e29
+    checksum: 6b20debe6a67c96466d1dc76ddadcebe40033ce9
     permissions: "644"
-    modified: 1720278809357
+    modified: 1720532039696
     merged: false
   - filename: src/generated/java/com/kapeta/everything/config/FeaturesConfig.java
     mode: write-always
@@ -113,18 +113,6 @@ assets:
     permissions: "644"
     modified: 1720279089595
     merged: false
-  - filename: src/generated/java/com/kapeta/everything/dto/TokenWithPasswordBase.java
-    mode: write-always
-    checksum: 786b79d962250118832ada9b9961b48b6cfac4d1
-    permissions: "644"
-    modified: 1720281176165
-    merged: false
-  - filename: src/main/java/com/kapeta/everything/dto/TokenWithPasswordDTO.java
-    mode: create-only
-    checksum: c7e9042d61c00397ab905c0598f260a4702c1ee6
-    permissions: "644"
-    modified: 1720279322467
-    merged: false
   - filename: kapeta.md
     mode: write-always
     checksum: 29caa79b4f6caf53451e6b4739fa5fdc9352387a
@@ -133,10 +121,10 @@ assets:
     merged: false
   - filename: pom.xml
     mode: merge
-    checksum: ad063710ac8d25e3f2ef238f9c3e057a8dbff160
+    checksum: 82d48a3b6b1789bd79cfdc362346bbb025e48e8d
     permissions: "644"
-    modified: 1720281062380
-    merged: false
+    modified: 1720529217207
+    merged: true
   - filename: scripts/start-dev.cmd
     mode: write-always
     checksum: 5d005bd88c946839b56cfb37290960d98f7b623d
@@ -173,6 +161,18 @@ assets:
     permissions: "644"
     modified: 1720278287444
     merged: false
+  - filename: src/main/java/com/kapeta/everything/repositories/users/User.java
+    mode: create-only
+    checksum: 8c98f556e440f7e24935356d76c3c2992d2dc24f
+    permissions: "644"
+    modified: 1720529450218
+    merged: false
+  - filename: src/main/java/com/kapeta/everything/repositories/users/UserRepository.java
+    mode: create-only
+    checksum: 355419041bd408f2af24e7cc09d119b5c42feedf
+    permissions: "644"
+    modified: 1720529386263
+    merged: false
   - filename: src/generated/java/com/kapeta/everything/repositories/users/UsersConfig.java
     mode: write-always
     checksum: af210eba75c6b8f39378f7e1913ea2e17ff3faf5
@@ -187,19 +187,19 @@ assets:
     merged: false
   - filename: src/generated/java/com/kapeta/everything/rest/UsersUsersController.java
     mode: write-always
-    checksum: deb4492772766edfb96c45e70c32e6f481f13cbf
+    checksum: 37a88266fd29d63c9ad5b4bec7eb2c2c22b0e8aa
     permissions: "644"
-    modified: 1720279422809
+    modified: 1720532039717
     merged: false
   - filename: src/generated/java/com/kapeta/everything/service/IUsersUsersService.java
     mode: create-only
-    checksum: c6ac361f509dc9cef5e7564d68f88dc38a2763a2
+    checksum: c7fcedad83e94efca5fd1c79eddc6fac1efa9bd6
     permissions: "644"
-    modified: 1720279422809
+    modified: 1720532039717
     merged: false
   - filename: src/main/java/com/kapeta/everything/service/UsersUsersService.java
     mode: create-only
-    checksum: f5177a30f4230ecb05ed0b3ac774d46cf1f2448d
+    checksum: 1b509c25e7283255c25b588d63db198a5483d020
     permissions: "644"
-    modified: 1720279422809
+    modified: 1720529688225
     merged: false

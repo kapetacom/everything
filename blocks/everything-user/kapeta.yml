@@ -74,54 +74,28 @@ spec:
             required: true
             global: false
             primary: false
-      - type: dto
-        name: TokenWithPassword
-        properties:
-          token:
-            type: string
-            secret: false
-            sensitive: false
-            required: true
-            global: false
-            primary: false
-          password:
-            type: string
-            secret: false
-            sensitive: false
-            required: true
-            global: false
-            primary: false
     source:
       type: kaplang
       version: 1.17.2
-      value: |-
+      value: |
         type User {
             email:string 
-
             name: string
         }
 
         type UserRegistration {
             email: string
-
             name: string 
-
             password:string
         }
 
         type UserAuthPassword {
             email: string
-
             password: string
         }
 
         type Token {
             token:string
-        }
-
-        type TokenWithPassword {
-            token:string
-            password:string
         }
   providers:
     - kind: kapeta/resource-type-rest-api:1.6.0
@@ -132,6 +106,13 @@ spec:
           name: rest
           type: rest
         methods:
+          Users::getAllUsers:
+            responseType:
+              ref: User[]
+            method: GET
+            path: /users/
+            arguments: {}
+            controllerName: Users
           Users::updateCurrentUser:
             responseType:
               ref: User
@@ -151,30 +132,6 @@ spec:
             path: /users/me
             arguments: {}
             controllerName: Users
-          Users::applyNewPassword:
-            responseType:
-              type: void
-            method: POST
-            path: /users/recover-password/apply
-            arguments:
-              token:
-                ref: TokenWithPassword
-                transport: BODY
-                argument: token
-                optional: false
-            controllerName: Users
-          Users::recoverPassword:
-            responseType:
-              ref: Token
-            method: POST
-            path: /users/recover-password
-            arguments:
-              email:
-                type: string
-                transport: QUERY
-                argument: email
-                optional: false
-            controllerName: Users
           Users::authenticate:
             responseType:
               ref: Token
@@ -185,18 +142,6 @@ spec:
                 ref: UserAuthPassword
                 transport: BODY
                 argument: auth
-                optional: false
-            controllerName: Users
-          Users::activateUser:
-            responseType:
-              ref: User
-            method: POST
-            path: /users/activate
-            arguments:
-              token:
-                ref: Token
-                transport: BODY
-                argument: token
                 optional: false
             controllerName: Users
           Users::registerUser:
@@ -220,17 +165,8 @@ spec:
                 @POST('/register')
                 registerUser( @Body payload:UserRegistration ):Token
 
-                @POST("/activate")
-                activateUser( @Body token:Token):User
-
                 @POST("/authenticate")
                 authenticate( @Body auth:UserAuthPassword):Token
-
-                @POST("/recover-password")
-                recoverPassword( @Query email:string):Token
-
-                @POST("/recover-password/apply")
-                applyNewPassword( @Body token:TokenWithPassword ):void
 
                 @GET("/me")
                 getCurrentUser():User
@@ -238,6 +174,8 @@ spec:
                 @POST("/me")
                 updateCurrentUser(@Body user:User):User
 
+                @GET("/")
+                getAllUsers(): User[]
             }
     - kind: kapeta/resource-type-auth-jwt-provider:1.1.0
       metadata:
@@ -253,8 +191,50 @@ spec:
       spec:
         port:
           type: postgres
+        models:
+          - name: User
+            properties:
+              id:
+                type: string
+                secret: false
+                sensitive: false
+                required: true
+                global: false
+                primary: true
+              email:
+                type: string
+                secret: false
+                sensitive: false
+                required: true
+                global: false
+                primary: false
+              name:
+                type: string
+                secret: false
+                sensitive: false
+                required: true
+                global: false
+                primary: false
+              password:
+                type: string
+                secret: false
+                sensitive: false
+                required: true
+                global: false
+                primary: false
+        source:
+          type: kaplang
+          version: 1.17.1
+          value: |-
+            type User {
+                @Id
+                id: string
+                email: string
+                name: string
+                password: string
+            }
   target:
-    kind: kapeta/language-target-java-spring-boot:1.7.2
+    kind: kapeta/language-target-java-spring-boot:local
     options:
       basePackage: com.kapeta.everything
       groupId: com.kapeta.everything

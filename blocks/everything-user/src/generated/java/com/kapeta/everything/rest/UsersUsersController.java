@@ -4,7 +4,6 @@
 package com.kapeta.everything.rest;
 
 import com.kapeta.everything.dto.TokenDTO;
-import com.kapeta.everything.dto.TokenWithPasswordDTO;
 import com.kapeta.everything.dto.UserAuthPasswordDTO;
 import com.kapeta.everything.dto.UserDTO;
 import com.kapeta.everything.dto.UserRegistrationDTO;
@@ -36,34 +35,10 @@ public class UsersUsersController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/activate", method = RequestMethod.POST)
-    public UserDTO activateUser(@Valid @RequestBody TokenDTO token)
-        throws Exception {
-        return service.activateUser(token);
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public TokenDTO authenticate(@Valid @RequestBody UserAuthPasswordDTO auth)
         throws Exception {
         return service.authenticate(auth);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/recover-password", method = RequestMethod.POST)
-    public TokenDTO recoverPassword(@RequestParam String email)
-        throws Exception {
-        return service.recoverPassword(email);
-    }
-
-    @RequestMapping(
-        value = "/recover-password/apply",
-        method = RequestMethod.POST
-    )
-    public void applyNewPassword(
-        @Valid @RequestBody TokenWithPasswordDTO token
-    ) throws Exception {
-        service.applyNewPassword(token);
     }
 
     @ResponseBody
@@ -77,5 +52,11 @@ public class UsersUsersController {
     public UserDTO updateCurrentUser(@Valid @RequestBody UserDTO user)
         throws Exception {
         return service.updateCurrentUser(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public List<UserDTO> getAllUsers() throws Exception {
+        return service.getAllUsers();
     }
 }
