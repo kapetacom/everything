@@ -234,7 +234,7 @@ spec:
                 password: string
             }
   target:
-    kind: kapeta/language-target-java-spring-boot:local
+    kind: kapeta/language-target-java-spring-boot:1.7.3
     options:
       basePackage: com.kapeta.everything
       groupId: com.kapeta.everything
