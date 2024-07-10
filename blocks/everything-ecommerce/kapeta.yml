@@ -392,7 +392,7 @@ spec:
           name: http
           type: http
   target:
-    kind: kapeta/language-target-java-spring-boot:1.7.2
+    kind: kapeta/language-target-java-spring-boot:1.7.3
     options:
       basePackage: com.kapeta.everything
       groupId: com.kapeta.everything
